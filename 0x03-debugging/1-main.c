@@ -8,11 +8,11 @@ int main(void)
 
         i = 0;
 
-        while (i < 10)
+       /* while (i < 10)
         {
-                putchar(i + '0');  // print the character equivalent to the integer value of i
-                i++;  // increment i by 1 during each iteration
-        }
+                putchar(i + '0'); 
+                i++;  
+        }*/
 
         printf("\nInfinite loop avoided! \\o/\n");
 
