@@ -53,7 +53,7 @@ void close_file(int fd)
  * Description: if the argument count is incorrect - exit code 97.
  * if file_from does not exist or cannot be read - exit code 98.
  * if file_to cannot be created or written to - exit code 99.
- * if file_to or file_from cannot be closed -exit code 100.
+ * if file_to or file_from cannot be closed - exit code 100.
  */
 int main(int argc, char *agrv[])
 {
@@ -67,7 +67,7 @@ int main(int argc, char *agrv[])
 	}
 
 	buffer = create_buffer(argv[2]);
-	from = open(agrv[1]);
+	from = open(agrv[1], O_RDONLY);
 	r = read(from, buffer, 1024);
 	to = open(argv[2], O_CREAT | O_WRONLY | O_TRUNC, 0664);
 
@@ -75,13 +75,22 @@ int main(int argc, char *agrv[])
 		if (from == -1 || r == -1)
 		{
 			dprintf(STDERR_FILENO,
-					"Erro: Can't write to %s\n", argv[2]);
+					"Erro: Can't write to %s\n", argv[1]);
+			free(buffer);
+			exit(98);
+		}
+
+		w = write(to, buffer, r);
+		if (to == -1 || w == -1)
+		{
+			dprintf(STDERR_FILENO,
+					"Error: Can't write to %s\n", argv[2]);
 			free(buffer);
 			exit(99);
 		}
 
 		r = read(from, buffer, 1024);
-		to = open(argv[2],O_WRONLY | O_APPEND);
+		to = open(argv[2], O_WRONLY | O_APPEND);
 
 	} while (r > 0);
 
@@ -91,4 +100,3 @@ int main(int argc, char *agrv[])
 
 	return (0);
 }
-
