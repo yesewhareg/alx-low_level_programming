@@ -13,7 +13,7 @@ void print_data(unsigned char *e_ident);
 void print_version(unsigned char *e_ident);
 void print_abi(unsigned char *e_ident);
 void print_osabi(unsigned char *e_ident);
-void print_type(unsigned char *e_ident);
+void print_type(unsigned int e_type, unsigned char *e_ident);
 void print_entry(unsigned long int e_entry, unsigned char *e_ident);
 void close_elf(int elf);
 
@@ -50,9 +50,9 @@ void print_magic(unsigned char *e_ident)
 {
 	int index;
 
-	printf("Magic: ");
+	printf(" Magic: ");
 
-	for (index = 0; index < EL_NIDENT - 1)
+	for (index = 0; index < EL_NIDENT; index++)
 	{
 		printf("%02x", e_ident[index]);
 
@@ -69,7 +69,7 @@ void print_magic(unsigned char *e_ident)
  */
 void print_class(unsigned char *e_ident)
 {
-	printf("Class");
+	printf(" Class: ");
 
 	switch (e_ident[EI_CLASS])
 	{
@@ -93,7 +93,7 @@ void print_class(unsigned char *e_ident)
  */
 void print_data(unsigned char *e_ident)
 {
-	printf("Data: ");
+	printf(" Data: ");
 	switch (e_ident[EI_DATA])
 	{
 		case ELFDATANONE:
@@ -271,7 +271,7 @@ int main(int__attribute__((__unused__)) argc, char *agrv[])
 	Elf64_Ehdr *header;
 	int o, r;
 
-	0 = open(argv[1], O_RDONLY);
+	o = open(argv[1], O_RDONLY);
 
 	if (o == -1)
 	{
