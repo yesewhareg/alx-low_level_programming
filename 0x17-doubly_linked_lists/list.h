@@ -20,9 +20,11 @@ typedef struct dlistint_s
     struct dlistint_s *next;
 } dlistint_t;
 
-size_t print_listint(const listint_t *h);
-listint_t *add_nodeint_end(listint_t **head, const int n);
-void free_listint(listint_t *head);
-int is_palindrome(listint_t **head);
+
+size_t print_dlistint(const dlistint_s *h);
+size_t dlistint_n(const dlistint_s *h);
+dlistint_s *add_node(dlistint_s **head, const int *n);
+dlistint_s *add_node_end(dlistint_s **head, const int *n);
+void free_list(dlistint_s *head);
 
 #endif /* LISTS_H */
